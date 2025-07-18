@@ -1,0 +1,42 @@
+<div class="custom-multiselect-container">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Select Items</mat-label>
+    <mat-select #matSelect (selectionChange)="onSelectionChange($event)" [disabled]="disabled()" [multiple]="true" disableOptionCentering>
+      <!-- Selected items section -->
+      @if (selectedItems().length > 0) {
+        <mat-optgroup label="Selected Items">
+          <div *ngFor="let item of selectedItems()" class="custom-option" (click)="removeItem(item); $event.stopPropagation()">
+            <div class="option-content">
+              <mat-icon class="remove-icon">close</mat-icon>
+              {{ item.name }}
+              <span *ngIf="item.children.length > 0" class="has-children-indicator"> (has children)</span>
+              <span class="deselect-indicator"> (click to remove)</span>
+            </div>
+          </div>
+        </mat-optgroup>
+        <mat-divider></mat-divider>
+      }
+      
+      <!-- Available items section -->
+      <mat-optgroup label="Available Items">
+        <mat-option *ngFor="let item of availableItems()" [value]="item">
+          <div class="option-content">
+            {{ item.name }}
+            <span *ngIf="item.children.length > 0" class="has-children-indicator"> (has children)</span>
+          </div>
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="selected-items">
+    <mat-chip-set>
+      <mat-chip *ngFor="let item of selectedItems()" (removed)="removeItem(item)">
+        {{ item.name }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-set>
+  </div>
+</div>

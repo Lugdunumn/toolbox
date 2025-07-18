@@ -1,0 +1,48 @@
+.custom-multiselect-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.selected-items {
+  margin-top: 10px;
+}
+
+.has-children-indicator, .deselect-indicator {
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 5px;
+}
+
+.deselect-indicator {
+  color: rgba(255, 0, 0, 0.7);
+  font-style: italic;
+}
+
+.option-content {
+  display: flex;
+  align-items: center;
+}
+
+.custom-option {
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.custom-option:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.remove-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  color: rgba(0, 0, 0, 0.54);
+}
