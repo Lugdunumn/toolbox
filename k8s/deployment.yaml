@@ -17,18 +17,14 @@ spec:
         image: your-angular-app:latest
         ports:
         - containerPort: 80
-        env:
-        - name: API_URL
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: api-url
-        - name: AUTH_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: auth-token
-        # Add startup command to generate config
+        volumeMounts:
+        - name: secrets-volume
+          mountPath: /etc/secrets
+          readOnly: true
         command: ["/bin/sh", "-c"]
         args:
-        - "node /app/scripts/generate-config.js && nginx -g 'daemon off;'"
+        - "node /app/scripts/watch-config.js & nginx -g 'daemon off;'"
+      volumes:
+      - name: secrets-volume
+        secret:
+          secretName: app-secrets

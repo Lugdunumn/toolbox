@@ -12,5 +12,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Install Node.js for the config script
 RUN apk add --update nodejs
 
-# Start with the script that generates config
-CMD ["/bin/sh", "-c", "node /app/scripts/generate-config.js && nginx -g 'daemon off;'"]
+# Run watcher script in background
+CMD ["/bin/sh", "-c", "node /app/scripts/watch-config.js & nginx -g 'daemon off;'"]
