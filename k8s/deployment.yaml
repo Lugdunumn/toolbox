@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-app
+  template:
+    metadata:
+      labels:
+        app: angular-app
+    spec:
+      containers:
+      - name: angular-app
+        image: your-angular-app:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: API_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: api-url
+        - name: AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: auth-token
+        # Add startup command to generate config
+        command: ["/bin/sh", "-c"]
+        args:
+        - "node /app/scripts/generate-config.js && nginx -g 'daemon off;'"
